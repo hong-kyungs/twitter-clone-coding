@@ -36,10 +36,19 @@ const HeaderWrapper = styled(Header)`
 	align-items: center;
 	margin-bottom: 10px;
 `;
-const H2 = styled.h3`
+const H3tag = styled.a`
 	color: rgba(255, 255, 255, 0.65);
 	margin: 0;
 `;
+const backgroundStyle = {
+	backgroundColor: '#e6f4f7',
+	height: '100%',
+};
+const colStyle = {
+	backgroundColor: '#fff',
+	borderRadius: '10px',
+	padding: '10px',
+};
 
 const AppLayout = ({ children }) => {
 	const [searchInput, onChangeSearchInput] = useInput('');
@@ -49,11 +58,15 @@ const AppLayout = ({ children }) => {
 		Router.push(`/hashtag/${searchInput}`);
 	}, [searchInput]);
 	return (
-		<div>
+		<div style={backgroundStyle}>
 			<Global />
 			<div>
 				<HeaderWrapper>
-					<H2>트위터 클론코딩</H2>
+					<h3>
+						<Link href='/'>
+							<H3tag>트위터 클론코딩</H3tag>
+						</Link>
+					</h3>
 					<Menu mode='horizontal' theme='dark'>
 						<Menu.Item>
 							<Link href='/'>
@@ -82,29 +95,33 @@ const AppLayout = ({ children }) => {
 					</Menu>
 				</HeaderWrapper>
 
-				<div style={{ padding: '0 50px' }}>
+				<Content style={{ padding: '0 50px' }}>
 					<Row gutter={12}>
 						<Col xs={24} md={6}>
-							{/* me, 내정보가 있으면 UserProfile, 없으면 LoginForm */}
-							{me ? <UserProfile /> : <LoginForm />}
+							<div style={colStyle}>
+								{/* me, 내정보가 있으면 UserProfile, 없으면 LoginForm */}
+								{me ? <UserProfile /> : <LoginForm />}
+							</div>
 						</Col>
 						<Col xs={24} md={12}>
-							{children}
+							<div style={colStyle}>{children}</div>
 						</Col>
 						<Col xs={24} md={6}>
-							{/* 
+							<div style={colStyle}>
+								{/* 
 					target='_blank'로 새창에서 띄우는데, 이것은 보안위협이 있으므로 반드시 rel='...'을 추가한다.
 					*/}
-							<a
-								href='https://hong-kyungs.github.io/'
-								target='_blank'
-								rel='noreferrer noopener'
-							>
-								My Blog
-							</a>
+								<a
+									href='https://hong-kyungs.github.io/'
+									target='_blank'
+									rel='noreferrer noopener'
+								>
+									My Blog
+								</a>
+							</div>
 						</Col>
 					</Row>
-				</div>
+				</Content>
 			</div>
 		</div>
 	);
