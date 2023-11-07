@@ -11,6 +11,7 @@ import Router from 'next/router';
 import UserProfile from './UserProfile';
 import LoginForm from './LoginForm';
 import useInput from '../../hooks/useInput';
+import RecommendedUser from './RecommendedUser';
 
 const { Header, Content } = Layout;
 const SearchInput = styled(Input.Search)`
@@ -28,6 +29,11 @@ const Global = createGlobalStyle`
 	.ant-col:last-child{
 		padding-right: 0 !important;
 	}
+	.ant-btn-text:hover,
+	.ant-btn-text:focus {
+		background: rgba(149, 175, 192, 1);
+	}
+
 `;
 
 const HeaderWrapper = styled(Header)`
@@ -85,6 +91,7 @@ const AppLayout = ({ children }) => {
 								value={searchInput}
 								onChange={onChangeSearchInput}
 								onSearch={onSearch} // enter를 누르면 onSearch 가 실행된다.
+								placeholder='해시태그 검색'
 							/>
 						</Menu.Item>
 						<Menu.Item>
@@ -108,16 +115,7 @@ const AppLayout = ({ children }) => {
 						</Col>
 						<Col xs={24} md={6}>
 							<div style={colStyle}>
-								{/* 
-					target='_blank'로 새창에서 띄우는데, 이것은 보안위협이 있으므로 반드시 rel='...'을 추가한다.
-					*/}
-								<a
-									href='https://hong-kyungs.github.io/'
-									target='_blank'
-									rel='noreferrer noopener'
-								>
-									My Blog
-								</a>
+								<RecommendedUser />
 							</div>
 						</Col>
 					</Row>
