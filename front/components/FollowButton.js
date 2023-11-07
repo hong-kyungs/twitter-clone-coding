@@ -29,10 +29,19 @@ const FollowButton = ({ post }) => {
 	}
 
 	return (
-		<Button loading={followLoading || unfollowLoading} onClick={onClickButton}>
-			{/* 버튼 : 이미 팔로우하고 있으면 ? 언팔로우, 언팔로우면? 팔로우 버튼 생성되게 하기 */}
-			{isFollowing ? '언팔로우' : '팔로우'}
-		</Button>
+		// <Button loading={followLoading || unfollowLoading} onClick={onClickButton}>
+		// 	{/* 버튼 : 이미 팔로우하고 있으면 ? 언팔로우, 언팔로우면? 팔로우 버튼 생성되게 하기 */}
+		// 	{isFollowing ? '언팔로우' : '팔로우'}
+		// </Button>
+		isFollowing ? (
+			<Button loading={unfollowLoading} onClick={onClickButton}>
+				언팔로우
+			</Button>
+		) : (
+			<Button type='primary' loading={followLoading} onClick={onClickButton}>
+				팔로우
+			</Button>
+		)
 	);
 };
 
