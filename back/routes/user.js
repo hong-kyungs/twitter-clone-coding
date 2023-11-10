@@ -85,6 +85,34 @@ router.get('/followings', isLoggedIn, async (req, res, next) => {
 	}
 });
 
+//추천 팔로우 라우터
+router.get('/unrelated', isLoggedIn, async (req, res, next) => {
+	try {
+		const followings = await User.findAll({
+			attributes: ['id'],
+			include: [
+				{
+					model: User,
+					as: 'Followers', // Followers에 나를 포함한 사람은 찾기 위함
+					where: { id: req.user.id },
+				},
+			],
+		});
+		const where = {
+			id: { [Op.notIn]: followings.map((v) => v.id).concat(req.user.id) },
+		};
+		const unrelated = await User.findAll({
+			where,
+			attributes: ['id', 'nickname'],
+		});
+		console.log(unrelated);
+		res.status(200).json(unrelated);
+	} catch (error) {
+		console.error(error);
+		next(error);
+	}
+});
+
 //특정 사용자 정보 가져오는 라우터
 router.get('/:userId', async (req, res, next) => {
 	//GET /user/1

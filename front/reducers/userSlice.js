@@ -43,8 +43,12 @@ export const initialState = {
 	addPostToMeLoading: false, //팔로워 차단/삭제 시도중
 	addPostToMeDone: false,
 	addPostToMeError: null,
+	loadUnrelatedUsersLoading: false, // 다른 유저들 정보 가져오기 시도중
+	loadUnrelatedUsersDone: false,
+	loadUnrelatedUsersError: null,
 	me: null,
 	userInfo: null,
+	unrelatedUsers: null,
 };
 
 const dummyUser = (data) => ({
@@ -156,6 +160,14 @@ export const addPostToMe = createAsyncThunk('/user/addPost', async (lastId) => {
 	const response = await axios.patch(`/user/post/${lastId}`);
 	return response.data;
 });
+
+export const loadUnrelatedUsers = createAsyncThunk(
+	'/user/unrelated',
+	async () => {
+		const response = await axios.get('/user/unrelated');
+		return response.data;
+	}
+);
 
 const userSlice = createSlice({
 	name: 'user',
@@ -344,6 +356,20 @@ const userSlice = createSlice({
 			.addCase(loadUser.rejected, (state, action) => {
 				state.loadUserLoading = false;
 				state.loadUserError = action.payload;
+			})
+			.addCase(loadUnrelatedUsers.pending, (state) => {
+				state.loadUnrelatedUsersLoading = true;
+				state.loadUnrelatedUsersDone = false;
+				state.loadUnrelatedUsersError = null;
+			})
+			.addCase(loadUnrelatedUsers.fulfilled, (state, action) => {
+				state.loadUnrelatedUsersLoading = false;
+				state.loadUnrelatedUsersDone = true;
+				state.unrelatedUsers = action.payload;
+			})
+			.addCase(loadUnrelatedUsers.rejected, (state, action) => {
+				state.loadUnrelatedUsersLoading = false;
+				state.loadUnrelatedUsersError = action.payload;
 			}),
 });
 

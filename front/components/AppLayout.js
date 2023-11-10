@@ -31,7 +31,7 @@ const Global = createGlobalStyle`
 	}
 	.ant-btn-text:hover,
 	.ant-btn-text:focus {
-		background: rgba(149, 175, 192, 1);
+		background: rgba(155, 190, 200, 0.7);
 	}
 
 `;
@@ -115,7 +115,17 @@ const AppLayout = ({ children }) => {
 						</Col>
 						<Col xs={24} md={6}>
 							<div style={colStyle}>
-								<RecommendedUser />
+								{me ? (
+									<RecommendedUser />
+								) : (
+									<a
+										href='https://hong-kyungs.github.io/'
+										target='_blank'
+										rel='noreferrer noopener'
+									>
+										My Blog
+									</a>
+								)}
 							</div>
 						</Col>
 					</Row>
