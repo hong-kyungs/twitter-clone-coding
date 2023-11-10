@@ -36,6 +36,7 @@ const RecommendedUser = () => {
 	const { unrelatedUsers, me } = useSelector((state) => state.user);
 	const [selected, setSelected] = useState(null);
 	const [loading, setLoading] = useState(false);
+	const [refresh, setRefresh] = useState(false);
 
 	useEffect(() => {
 		dispatch(loadUnrelatedUsers());
@@ -59,10 +60,11 @@ const RecommendedUser = () => {
 			setSelected(shuffle.slice(0, 5));
 			setLoading(true);
 		}
-	}, [unrelatedUsers]);
+	}, [unrelatedUsers, refresh]);
 
 	const onRefresh = () => {
 		console.log('다시');
+		setRefresh(!refresh);
 	};
 
 	return (
@@ -78,7 +80,7 @@ const RecommendedUser = () => {
 			</Followbox>
 			{loading ? (
 				selected.map((select) => (
-					<CardWrapper>
+					<CardWrapper key={select.id}>
 						<div className='cardWrapper'>
 							<Card.Meta
 								avatar={
