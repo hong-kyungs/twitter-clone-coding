@@ -135,8 +135,8 @@ const FollowList = ({ header }) => {
 FollowList.propTypes = {
 	header: PropTypes.string.isRequired,
 	data: PropTypes.array,
-	onClickMore: PropTypes.func.isRequired,
-	loading: PropTypes.bool.isRequired,
+	// onClickMore: PropTypes.func.isRequired,
+	// loading: PropTypes.bool.isRequired,
 };
 
 export default FollowList;

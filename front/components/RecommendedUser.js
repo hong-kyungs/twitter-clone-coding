@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Card, Avatar, Button } from 'antd';
+import { Card, Avatar, Button, List } from 'antd';
 import Link from 'next/link';
 import { RedoOutlined } from '@ant-design/icons';
 import { loadUnrelatedUsers } from '../reducers/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { follow, unfollow } from '../reducers/userSlice';
 
 import wrapper from '../store/configureStore';
+// import { List } from 'antd/lib/form/Form';
 
 const Followbox = styled.div`
 	display: flex;
@@ -33,10 +35,13 @@ const CardWrapper = styled(Card)`
 
 const RecommendedUser = () => {
 	const dispatch = useDispatch();
-	const { unrelatedUsers, me } = useSelector((state) => state.user);
+	const { unrelatedUsers, me, followLoading, unfollowLoading } = useSelector(
+		(state) => state.user
+	);
 	const [selected, setSelected] = useState(null);
 	const [loading, setLoading] = useState(false);
 	const [refresh, setRefresh] = useState(false);
+	const [unrelated, setUnrealted] = useState(true);
 
 	useEffect(() => {
 		dispatch(loadUnrelatedUsers());
@@ -62,10 +67,34 @@ const RecommendedUser = () => {
 		}
 	}, [unrelatedUsers, refresh]);
 
-	const onRefresh = () => {
-		console.log('다시');
+	const onRefresh = useCallback(() => {
+		console.log(refresh);
 		setRefresh(!refresh);
-	};
+	}, [refresh]);
+
+	const onFollow = useCallback(
+		(id) => () => {
+			dispatch(follow(id));
+		},
+		[followLoading]
+	);
+
+	const onUnfollow = useCallback(
+		(id) => () => {
+			dispatch(unfollow(id));
+		},
+		[unfollowLoading]
+	);
+
+	// const onToggle = useCallback(
+	// 	(select) => {
+	// 		if (isFollowing) {
+	// 			dispatch(unfollow(select.id));
+	// 		}
+	// 		dispatch(follow(select.id));
+	// 	},
+	// 	[followLoading, unfollowLoading]
+	// );
 
 	return (
 		<div>
@@ -78,6 +107,35 @@ const RecommendedUser = () => {
 					onClick={onRefresh}
 				/>
 			</Followbox>
+			{/* {loading ? (
+				<List
+					itemLayout='horizontal'
+					dataSource={selected}
+					renderItem={(item, index) => (
+						<List.Item>
+							<List.Item.Meta
+								avatar={
+									<Link href={`/user/${item.id}`}>
+										<a>
+											<Avatar>{item.nickname[0]}</Avatar>
+										</a>
+									</Link>
+								}
+								title={item.nickname}
+							/>
+							{unrelated ? (
+								<Button type='primary' onClick={follow(item, index)}>
+									팔로우
+								</Button>
+							) : (
+								<Button onClick={unfollow(item, index)}>언팔로우</Button>
+							)}
+						</List.Item>
+					)}
+				/>
+			) : (
+				<div>바보</div>
+			)} */}
 			{loading ? (
 				selected.map((select) => (
 					<CardWrapper key={select.id}>
@@ -92,7 +150,22 @@ const RecommendedUser = () => {
 								}
 								title={select.nickname}
 							/>
-							<Button type='primary'>팔로우</Button>
+							{me?.followings?.some((follow) => follow.id === select.id) ? (
+								<Button
+									loading={unfollowLoading}
+									onClick={onUnfollow(select.id)}
+								>
+									언팔로우
+								</Button>
+							) : (
+								<Button
+									type='primary'
+									loading={followLoading}
+									onClick={onFollow(select.id)}
+								>
+									팔로우
+								</Button>
+							)}
 						</div>
 					</CardWrapper>
 				))
