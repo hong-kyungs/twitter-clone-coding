@@ -49,6 +49,7 @@ export const initialState = {
 	me: null,
 	userInfo: null,
 	unrelatedUsers: null,
+	selectedUsers: null,
 };
 
 const dummyUser = (data) => ({

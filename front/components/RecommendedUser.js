@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, useMemo } from 'react';
 import styled from 'styled-components';
 import { Card, Avatar, Button, List } from 'antd';
 import Link from 'next/link';
@@ -6,9 +6,6 @@ import { RedoOutlined } from '@ant-design/icons';
 import { loadUnrelatedUsers } from '../reducers/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { follow, unfollow } from '../reducers/userSlice';
-
-import wrapper from '../store/configureStore';
-// import { List } from 'antd/lib/form/Form';
 
 const Followbox = styled.div`
 	display: flex;
@@ -38,14 +35,14 @@ const RecommendedUser = () => {
 	const { unrelatedUsers, me, followLoading, unfollowLoading } = useSelector(
 		(state) => state.user
 	);
-	const [selected, setSelected] = useState(null);
+	const [selected, setSelected] = useState([]);
 	const [loading, setLoading] = useState(false);
 	const [refresh, setRefresh] = useState(false);
 	const [unrelated, setUnrealted] = useState(true);
 
 	useEffect(() => {
 		dispatch(loadUnrelatedUsers());
-		console.log(unrelatedUsers);
+		// console.log(unrelatedUsers);
 	}, []);
 
 	useEffect(() => {
@@ -68,7 +65,7 @@ const RecommendedUser = () => {
 	}, [unrelatedUsers, refresh]);
 
 	const onRefresh = useCallback(() => {
-		console.log(refresh);
+		console.log('refresh');
 		setRefresh(!refresh);
 	}, [refresh]);
 
@@ -76,25 +73,15 @@ const RecommendedUser = () => {
 		(id) => () => {
 			dispatch(follow(id));
 		},
-		[followLoading]
+		[]
 	);
 
 	const onUnfollow = useCallback(
 		(id) => () => {
 			dispatch(unfollow(id));
 		},
-		[unfollowLoading]
+		[]
 	);
-
-	// const onToggle = useCallback(
-	// 	(select) => {
-	// 		if (isFollowing) {
-	// 			dispatch(unfollow(select.id));
-	// 		}
-	// 		dispatch(follow(select.id));
-	// 	},
-	// 	[followLoading, unfollowLoading]
-	// );
 
 	return (
 		<div>
@@ -150,7 +137,7 @@ const RecommendedUser = () => {
 								}
 								title={select.nickname}
 							/>
-							{me?.followings?.some((follow) => follow.id === select.id) ? (
+							{me?.Followings?.some((follow) => follow.id === select.id) ? (
 								<Button
 									loading={unfollowLoading}
 									onClick={onUnfollow(select.id)}
@@ -175,17 +162,5 @@ const RecommendedUser = () => {
 		</div>
 	);
 };
-
-// export const getServerSideProps = wrapper.getServerSideProps(
-// 	(store) =>
-// 		async ({ req }) => {
-// 			const cookie = req ? req.headers.cookie : '';
-// 			axios.defaults.headers.Cookie = '';
-// 			if (req && cookie) {
-// 				axios.defaults.headers.Cookie = cookie;
-// 			}
-// 			await store.dispatch(loadUnrelatedUsers());
-// 		}
-// );
 
 export default RecommendedUser;
