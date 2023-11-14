@@ -19,6 +19,9 @@ const SearchInput = styled(Input.Search)`
 `;
 
 const Global = createGlobalStyle`
+	body{
+		background-color: #e6f4f7;
+	}
 	.ant-row{
 		margin-right: 0 !important;
 		margin-left: 0 !important;
@@ -46,10 +49,10 @@ const H3tag = styled.a`
 	color: rgba(255, 255, 255, 0.65);
 	margin: 0;
 `;
-const backgroundStyle = {
-	backgroundColor: '#e6f4f7',
-	height: '100%',
-};
+// const backgroundStyle = {
+// 	backgroundColor: '#e6f4f7',
+// 	height: '100%',
+// };
 const colStyle = {
 	backgroundColor: '#fff',
 	borderRadius: '10px',
@@ -64,7 +67,7 @@ const AppLayout = ({ children }) => {
 		Router.push(`/hashtag/${searchInput}`);
 	}, [searchInput]);
 	return (
-		<div style={backgroundStyle}>
+		<div>
 			<Global />
 			<div>
 				<HeaderWrapper>
