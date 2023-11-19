@@ -151,7 +151,7 @@ router.get('/:userId', async (req, res, next) => {
 			res.status(200).json(data);
 		} else {
 			//로그인 정보가 없으면 아무것도 보내주지 않으면 된다.
-			res.status(404).json('존재하지 않는 사용자입니다. ');
+			res.status(404).json('입니다. ');
 		}
 	} catch (error) {
 		console.error(error);
