@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import postSlice, { addPost, uploadImages } from '../reducers/postSlice';
 import { addPostToMe } from '../reducers/userSlice';
 import useInput from '../../hooks/useInput';
+import { backUrl } from '../config/config';
 
 const PostForm = () => {
 	const { imagePaths, addPostDone, mainPosts } = useSelector(
@@ -97,11 +98,7 @@ const PostForm = () => {
 			<div>
 				{imagePaths.map((v, i) => (
 					<div key={v} style={{ display: 'inline-block' }}>
-						<img
-							src={`http://localhost:3065/${v}`}
-							style={{ width: '200px' }}
-							alt={v}
-						/>
+						<img src={`${backUrl}/${v}`} style={{ width: '200px' }} alt={v} />
 						<div>
 							<Button onClick={onRemoveImage(i)}>제거</Button>
 						</div>

@@ -1,11 +1,12 @@
 import { HYDRATE } from 'next-redux-wrapper';
 import { combineReducers } from 'redux';
 import axios from 'axios';
+import { backUrl } from '../config/config';
 
 import userSlice from './userSlice';
 import postSlice from './postSlice';
 
-axios.defaults.baseURL = 'http://localhost:3065';
+axios.defaults.baseURL = backUrl;
 axios.defaults.withCredentials = true;
 
 const rootReducer = combineReducers({

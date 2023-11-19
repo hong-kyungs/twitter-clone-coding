@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import { PlusOutlined } from '@ant-design/icons';
+import { backUrl } from '../config/config';
 
 import ImagesZoom from './ImagesZoom';
 
@@ -22,7 +23,7 @@ const PostImages = ({ images }) => {
 				{/* 시각장애인들 위한 screen reader가 role="presentation"로 사진을 굳이 클릭할 필요가 없다고 알려줌*/}
 				<img
 					role='presentation'
-					src={`http://localhost:3065/${images[0].src}`}
+					src={`${backUrl}/${images[0].src}`}
 					alt={images[0].src}
 					onClick={onZoom}
 				/>
@@ -37,14 +38,14 @@ const PostImages = ({ images }) => {
 				<img
 					role='presentation'
 					style={{ display: 'inline-block', width: '50%' }}
-					src={`http://localhost:3065/${images[0].src}`}
+					src={`${backUrl}/${images[0].src}`}
 					alt={images[0].src}
 					onClick={onZoom}
 				/>
 				<img
 					role='presentation'
 					style={{ display: 'inline-block', width: '50%' }}
-					src={`http://localhost:3065/${images[1].src}`}
+					src={`${backUrl}/${images[1].src}`}
 					alt={images[1].src}
 					onClick={onZoom}
 				/>
@@ -58,7 +59,7 @@ const PostImages = ({ images }) => {
 			<img
 				role='presentation'
 				style={{ display: 'inline-block', width: '50%' }}
-				src={`http://localhost:3065/${images[0].src}`}
+				src={`${backUrl}/${images[0].src}`}
 				alt={images[0].src}
 				onClick={onZoom}
 			/>
@@ -70,7 +71,8 @@ const PostImages = ({ images }) => {
 					textAlign: 'center',
 					verticalAlign: 'middle',
 				}}
-				onClick={onZoom}>
+				onClick={onZoom}
+			>
 				<PlusOutlined />
 				<br />
 				{images.length - 1}
