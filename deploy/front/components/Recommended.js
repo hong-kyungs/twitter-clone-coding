@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { RedoOutlined } from '@ant-design/icons';
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
+import { backUrl } from '../config/config';
 
 import useSWR from 'swr';
 import axios from 'axios';
@@ -24,10 +25,7 @@ const Recommended = () => {
 		useSelector((state) => state.user);
 	const dispatch = useDispatch();
 
-	const { data, error, mutate } = useSWR(
-		'http://localhost:3065/user/unrelated',
-		fetcher
-	);
+	const { data, error, mutate } = useSWR(`${backUrl}/user/unrelated`, fetcher);
 
 	const isFollowing = me?.following?.some((follow) => follow.id === data.id);
 

@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { unfollow, removeFollower } from '../reducers/userSlice';
 import useSWR from 'swr';
 import axios from 'axios';
+import { backUrl } from '../config/config';
 
 //fetcher는 이 주소를 실제로 어떻게 가져올것인지 넣어주기. - axios.get
 const fetcher = (url) =>
@@ -24,18 +25,12 @@ const FollowList = ({ header }) => {
 		data: followersData,
 		error: followerError,
 		mutate: followerMutation,
-	} = useSWR(
-		`http://localhost:3065/user/followers?limit=${followersLimit}`,
-		fetcher
-	);
+	} = useSWR(`${backUrl}/user/followers?limit=${followersLimit}`, fetcher);
 	const {
 		data: follwingsData,
 		error: followingError,
 		mutate: followingMutation,
-	} = useSWR(
-		`http://localhost:3065/user/followings?limit=${followingsLimit}`,
-		fetcher
-	);
+	} = useSWR(`${backUrl}/user/followings?limit=${followingsLimit}`, fetcher);
 
 	//더보기 버튼을 누를때마다 limit을 3씩 올려줘서 3명씩 더 보이게하기.
 	const loadMoreFollowers = useCallback(() => {
