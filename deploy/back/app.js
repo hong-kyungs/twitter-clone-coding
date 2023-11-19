@@ -56,6 +56,11 @@ app.use(
 		saveUninitialized: false,
 		resave: false,
 		secret: process.env.COOKIE_SECRET,
+		cookie: {
+			httpOnly: true, //쿠키는 자바스크립트로는 접근 못하게 하기-자바스크립트로 접근하면 변조된다.
+			secure: false, //일단 false로, https 적용할 때 true로 만들어준다.
+			domain: process.env.NODE_ENV === 'production' && '.nodebird.store',
+		},
 	})
 );
 app.use(passport.initialize());
