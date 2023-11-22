@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import postSlice, { addPost, uploadImages } from '../reducers/postSlice';
 import { addPostToMe } from '../reducers/userSlice';
 import useInput from '../../hooks/useInput';
-import { backUrl } from '../config/config';
 
 const PostForm = () => {
 	const { imagePaths, addPostDone, mainPosts } = useSelector(
