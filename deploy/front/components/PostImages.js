@@ -23,7 +23,7 @@ const PostImages = ({ images }) => {
 				{/* 시각장애인들 위한 screen reader가 role="presentation"로 사진을 굳이 클릭할 필요가 없다고 알려줌*/}
 				<img
 					role='presentation'
-					src={`${backUrl}/${images[0].src}`}
+					src={`${images[0].src}`}
 					alt={images[0].src}
 					onClick={onZoom}
 				/>
@@ -38,14 +38,14 @@ const PostImages = ({ images }) => {
 				<img
 					role='presentation'
 					style={{ display: 'inline-block', width: '50%' }}
-					src={`${backUrl}/${images[0].src}`}
+					src={`${images[0].src}`}
 					alt={images[0].src}
 					onClick={onZoom}
 				/>
 				<img
 					role='presentation'
 					style={{ display: 'inline-block', width: '50%' }}
-					src={`${backUrl}/${images[1].src}`}
+					src={`${images[1].src}`}
 					alt={images[1].src}
 					onClick={onZoom}
 				/>
@@ -59,7 +59,7 @@ const PostImages = ({ images }) => {
 			<img
 				role='presentation'
 				style={{ display: 'inline-block', width: '50%' }}
-				src={`${backUrl}/${images[0].src}`}
+				src={`${images[0].src}`}
 				alt={images[0].src}
 				onClick={onZoom}
 			/>
