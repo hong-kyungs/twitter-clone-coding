@@ -2,6 +2,8 @@ const express = require('express');
 const multer = require('multer');
 const path = require('path'); // path는 노드에서 제공
 const fs = require('fs'); //노드에서 파일 시스템을 조작해주는 모듈
+const multerS3 = require('multer-s3');
+const AWS = require('aws-sdk');
 
 const { Post, Image, Comment, User, Hashtag } = require('../models');
 const { isLoggedIn } = require('./middlewares');
@@ -15,21 +17,20 @@ try {
 	fs.mkdirSync('uploads'); //'uploads'라는 폴더 생성
 }
 
+AWS.config.update({
+	accessKeyId: process.env.S3_ACCESS_KEY_ID,
+	secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
+	region: 'ap-northeast-2',
+});
+
 // form마다 형식이 다르기때문에 multer미들웨어를 사용해서 라우터마다 별도의 세팅을 해줘야한다.
 const upload = multer({
-	//storage는 저장할 곳을 적어준다. 일단 실습할때는 diskStorage로 하드웨어에 저장.
-	//나중에는 하드웨어가 아니라 클라우드에 저장. 나중에 storage 옵션만 s3옵션으로 바꾸면 된다.
-	storage: multer.diskStorage({
-		destination(req, file, done) {
-			done(null, 'uploads'); //'upload'라는 폴더에 저장한다.
-		},
-		//파일명이 중복되면 노드는 기존파일을 덮어씌운다. 먼저 파일을 올리사람이 피해를 볼 수 있다
-		//이를 해결하기 위해 파일명에 업로드 날짜를 추가해줘서 파일명이 중복되는 것을 방지
-		filename(req, file, done) {
-			//ex) 제로초.png 라면,
-			const ext = path.extname(file.originalname); //확장자 추출 -> .png
-			const basename = path.basename(file.originalname, ext); // 파일명 꺼내오기 -> 제로초
-			done(null, basename + '_' + new Date().getTime() + ext); //제로초15390285762.png
+	//스토리지를 diskstorage에서 multerS3로 바꿔준다.
+	storage: multerS3({
+		s3: new AWS.S3(),
+		bucket: 'twitter-clone-coding',
+		key(req, file, cb) {
+			cb(null, `original/${Date.now()}_${path.basename(file.originalname)}`);
 		},
 	}),
 	limits: { fileSize: 20 * 1024 * 1024 }, //20MB, 20MB으로 제한
@@ -115,7 +116,7 @@ router.post(
 	async (req, res, next) => {
 		//POST /post/images
 		console.log(req.files); //req.files에 업로드한 이미지에 대한 정보가 들어있다.
-		res.json(req.files.map((v) => v.filename)); // 어디로 업로드 됐는지 파일명을 다시 프론트로 보내준다.
+		res.json(req.files.map((v) => v.location)); // 어디로 업로드 됐는지 파일명을 다시 프론트로 보내준다.
 	}
 );
 
