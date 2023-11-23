@@ -116,7 +116,10 @@ router.post(
 	async (req, res, next) => {
 		//POST /post/images
 		console.log(req.files); //req.files에 업로드한 이미지에 대한 정보가 들어있다.
-		res.json(req.files.map((v) => v.location)); // 어디로 업로드 됐는지 파일명을 다시 프론트로 보내준다.
+		//정규표현식으로 original이라는 폴더가 있으면 thumb로 바꿔준다 - 원본 대신에 리사이징한 이미지가 프론트로 들어간다.
+		res.json(
+			req.files.map((v) => v.location.replace(/\/original\//, '/thumb/'))
+		); // 어디로 업로드 됐는지 파일명을 다시 프론트로 보내준다.
 	}
 );
 
