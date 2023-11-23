@@ -48,10 +48,7 @@ export const ImgWrapper = styled.div`
 	text-align: center;
 	& img {
 		margin: 0 auto;
-		max-width: 620px;
-		@media screen and (max-width: 600px) {
-			max-width: 400px;
-		}
+		max-height: 600px;
 	}
 `;
 
