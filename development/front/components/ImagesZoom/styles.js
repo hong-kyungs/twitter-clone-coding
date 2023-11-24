@@ -36,7 +36,7 @@ export const CloseBtn = styled(CloseOutlined)`
 `;
 
 export const SlickWrapper = styled.div`
-	height: calc(100vh - 44px);
+	height: calc(100% - 44px);
 	background: #090909;
 	display: flex;
 	flex-direction: column;
