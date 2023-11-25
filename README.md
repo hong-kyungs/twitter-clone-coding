@@ -38,16 +38,52 @@ PASSWORD: 123
 <summary>회원가입/로그인</summary>
 <div markdown="1">
 
-텍스트 , 이미지 등등 입력
+- 회원가입
+
+  - 회원가입시 이미 사용중인 아이디이면, 에러메세지를 보여준다.
+
+- 로그인
+  - 로그인시 사용자 프로필 보여준다. -> 유저 정보 확인(게시글 / 팔로우 / 팔로워 숫자 확인)
 
 </div>
 </details>
 
 <details>
-<summary>홈</summary>
+<summary>Home</summary>
 <div markdown="1">
 
-텍스트 , 이미지 등등 입력
+- 게시글 로딩
+- 실시간 팔로우 추천 업데이트(팔로우, 언팔로우 가능)
+
+</div>
+</details>
+
+<details>
+<summary>프로필</summary>
+<div markdown="1">
+
+- 닉네임 수정 및 팔로우 / 팔로워 목록 불러오기
+- 목록내에 있는 🚫 버튼을 이용하여 언팔로우나 팔로워삭제 가능
+
+</div>
+</details>
+
+<details>
+<summary>게시글</summary>
+<div markdown="1">
+
+- 게시글 작성 및 수정(실시간 반영), 이미지 업로드
+- 좋아요 버튼(토글)
+- 댓글 작성
+- 리트윗
+  - 본인의 게시물은 리트윗하지 못하게 하고, 한번 리트윗한 게시글은 다시 리트윗하지 못하게 하고 에러메세지 보여준다.
+
+</div>
+</details>
+
+<details>
+<summary></summary>
+<div markdown="1">
 
 </div>
 </details>

@@ -14,6 +14,9 @@ router.get('/:tag', async (req, res, next) => {
 		const posts = await Post.findAll({
 			where,
 			limit: 10,
+			order: [
+				['createdAt', 'DESC'], //게시글 내림차순 정렬
+			],
 			include: [
 				//게시글 가져오는 부분은 동일하고, hashtag 가져오는 부분에 where을 추가해준다.
 				// hashtag 가져오는 부분에 where을 추가처럼 include안에서도 조건 적용이 가능하다.
