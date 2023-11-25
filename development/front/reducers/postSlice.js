@@ -90,7 +90,7 @@ export const retweet = createAsyncThunk(
 	'post/retweet',
 	async (data, { rejectWithValue }) => {
 		try {
-			const response = await axios.post(`/post/${data}/retweet`);
+			const response = await axios.post(`/post/${data}/retweet`, data);
 			return response.data;
 		} catch (err) {
 			return rejectWithValue(err.response.data);
@@ -102,7 +102,7 @@ export const loadPost = createAsyncThunk(
 	'post/loadPost',
 	async (data, { rejectWithValue }) => {
 		try {
-			const response = await axios.get(`/post/${data}`);
+			const response = await axios.get(`/post/${data}`, data);
 			return response.data;
 		} catch (err) {
 			return rejectWithValue(err.response.data);

@@ -103,7 +103,7 @@ const PostCard = ({ post }) => {
 	}, []);
 
 	return (
-		<div style={{ marginTop: 20 }}>
+		<div style={{ marginBottom: 20 }}>
 			<Card
 				//cover - image
 				cover={post.Images[0] && <PostImages images={post.Images} />}
