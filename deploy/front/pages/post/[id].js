@@ -38,7 +38,7 @@ const Post = () => {
 					content={
 						singlePost.Images[0]
 							? singlePost.Images[0].src
-							: 'http://nodebird.store/favicon.ico'
+							: 'http://nodebird.store/twitter.jpg'
 					}
 				/>
 				<meta property='og:url' content={`http://nodebird.store/post/${id}`} />

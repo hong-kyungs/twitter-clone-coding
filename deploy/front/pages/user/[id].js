@@ -66,7 +66,7 @@ const User = () => {
 					/>
 					<meta
 						property='og:image'
-						content='http://nodebird.store/favicon.ico'
+						content='http://nodebird.store/twitter.jpg'
 					/>
 					<meta
 						property='og:url'
