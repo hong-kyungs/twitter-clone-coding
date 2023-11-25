@@ -32,6 +32,7 @@ const PostCard = ({ post }) => {
 	const { removePostLoading } = useSelector((state) => state.post);
 	const [commentFormOpened, setCommentFormOpened] = useState(false);
 	const [editMode, setEditMode] = useState(false);
+	const [isReported, setIsReported] = useState(false);
 
 	//옵셔널 체이닝
 	//const id = useSelector((state) => state.user.me && state.user.me.id);를 ?.으로 줄여줄 수 있다
@@ -97,6 +98,10 @@ const PostCard = ({ post }) => {
 		setEditMode(false);
 	}, []);
 
+	const onToggleReport = useCallback(() => {
+		setIsReported((prev) => !prev);
+	}, []);
+
 	return (
 		<div style={{ marginTop: 20 }}>
 			<Card
@@ -140,8 +145,12 @@ const PostCard = ({ post }) => {
 											삭제
 										</Button>
 									</>
+								) : isReported ? (
+									<Button type='primary' onClick={onToggleReport}>
+										신고
+									</Button>
 								) : (
-									<Button>신고</Button>
+									<Button onClick={onToggleReport}>신고</Button>
 								)}
 							</Button.Group>
 						}
