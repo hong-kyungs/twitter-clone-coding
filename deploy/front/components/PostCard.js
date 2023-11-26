@@ -33,6 +33,11 @@ const PostCard = ({ post }) => {
 	const [commentFormOpened, setCommentFormOpened] = useState(false);
 	const [editMode, setEditMode] = useState(false);
 	const [isReported, setIsReported] = useState(false);
+	const [date, setDate] = useState(null);
+
+	useEffect(() => {
+		setDate(moment(post.createdAt).format('YYYY. MM. DD'));
+	}, []);
 
 	//옵셔널 체이닝
 	//const id = useSelector((state) => state.user.me && state.user.me.id);를 ?.으로 줄여줄 수 있다
@@ -173,9 +178,7 @@ const PostCard = ({ post }) => {
 							)
 						}
 					>
-						<div style={{ float: 'right' }}>
-							{moment(post.createdAt).format('YYYY. MM. DD')}
-						</div>
+						<div style={{ float: 'right' }}>{date}</div>
 						<Card.Meta
 							avatar={
 								<Link href={`/user/${post.Retweet.User.id}`}>
@@ -196,9 +199,7 @@ const PostCard = ({ post }) => {
 					</Card>
 				) : (
 					<>
-						<div style={{ float: 'right' }}>
-							{moment(post.createdAt).format('YYYY. MM. DD')}
-						</div>
+						<div style={{ float: 'right' }}>{date}</div>
 						<Card.Meta
 							avatar={
 								<Link href={`/user/${post.User.id}`}>

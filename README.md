@@ -41,9 +41,11 @@ PASSWORD: 123
 - 회원가입
 
   - 회원가입시 이미 사용중인 아이디이면, 에러메세지를 보여준다.
+    <img src="image/signup.gif" width="600" height="400"/>
 
 - 로그인
   - 로그인시 사용자 프로필 보여준다. -> 유저 정보 확인(게시글 / 팔로우 / 팔로워 숫자 확인)
+    <img src="image/login-logout.gif" width="600" height="400"/>
 
 </div>
 </details>
@@ -53,7 +55,9 @@ PASSWORD: 123
 <div markdown="1">
 
 - 게시글 로딩
+  - 인피니트 스크롤링 - 게시글이 10개씩 업로드되는데, 마지막 게시글까지 스크롤되면 다음 10개의 게시글이 업로드된다.
 - 실시간 팔로우 추천 업데이트(팔로우, 언팔로우 가능)
+  <img src="image/home.gif" width="600" height="400"/>
 
 </div>
 </details>
