@@ -1,5 +1,7 @@
 # 트위터 클론 코딩
 
+![](image/introduction.jpg)
+
 [클론 사이트 바로가기](http://nodebird.store)
 
 ## 📋 Project
