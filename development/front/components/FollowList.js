@@ -71,7 +71,7 @@ const FollowList = ({ header }) => {
 	return header === '팔로잉' ? (
 		<List
 			style={{ marginBottom: 20 }}
-			grid={{ gutter: 4, sm: 2, md: 3, lg: 3 }}
+			grid={{ gutter: 4, xs: 2, sm: 2, md: 3, lg: 3, xl: 3, xxl: 3 }}
 			size='small'
 			header={<div>{header}</div>}
 			loadMore={
@@ -101,7 +101,7 @@ const FollowList = ({ header }) => {
 	) : (
 		<List
 			style={{ marginBottom: 20 }}
-			grid={{ gutter: 4, sm: 2, md: 3, lg: 3 }}
+			grid={{ gutter: 4, xs: 2, sm: 2, md: 3, lg: 3, xl: 3, xxl: 3 }}
 			size='small'
 			header={<div>{header}</div>}
 			loadMore={
