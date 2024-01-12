@@ -39,7 +39,7 @@ if (process.env.NODE_ENV === 'production') {
 app.use(
 	cors({
 		//*로 모두 다 허용해줬지만 실무에서는 실제로 요청이 허용될 주소를 넣어준다.
-		origin: ['http://localhost:3060', 'http://nodebird.store'],
+		origin: ['http://localhost:3060', 'https://nodebird.store'],
 		credentials: true,
 	})
 );
@@ -58,7 +58,7 @@ app.use(
 		secret: process.env.COOKIE_SECRET,
 		cookie: {
 			httpOnly: true, //쿠키는 자바스크립트로는 접근 못하게 하기-자바스크립트로 접근하면 변조된다.
-			secure: false, //일단 false로, https 적용할 때 true로 만들어준다.
+			secure: true, //일단 false로, https 적용할 때 true로 만들어준다.
 			domain: process.env.NODE_ENV === 'production' && '.nodebird.store',
 		},
 	})
@@ -79,6 +79,6 @@ app.use('/post', postRouter);
 app.use('/user', userRouter);
 app.use('/hashtag', hashtagRouter);
 
-app.listen(80, () => {
+app.listen(3065, () => {
 	console.log('서버 실행 중');
 });
